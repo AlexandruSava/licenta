@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "60686058014",
+    "project_id": "licenta-driver-assistant",
+    "storage_bucket": "licenta-driver-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60686058014:android:e22b25d1842cca5daa640f",
+        "android_client_info": {
+          "package_name": "edu.licenta.sava"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60686058014-k5t1u5dcupvsromfjkrvate0ahqnpiod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.licenta.sava",
+            "certificate_hash": "810087d22ea7a2b009476fadeb2611f0e43b5471"
+          }
+        },
+        {
+          "client_id": "60686058014-c30en6i3u4ft4agsfet6hsufkcbou0uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8fdIYyZshjpLrD3yh5qxa6KLud50CLbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60686058014-c30en6i3u4ft4agsfet6hsufkcbou0uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

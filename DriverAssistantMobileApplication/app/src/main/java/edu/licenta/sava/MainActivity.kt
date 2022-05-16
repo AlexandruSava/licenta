@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initializeButtons() {
-        cancelAction()
-
         nextAction()
     }
 
@@ -29,9 +27,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun cancelAction() {
-        binding.cancelButton.setOnClickListener {
-
-        }
-    }
 }
