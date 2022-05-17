@@ -13,9 +13,9 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/car_logo"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp"
+        app:srcCompat="@drawable/car_logo" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
@@ -36,15 +36,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:hint="@string/hint_username">
+        android:hint="@string/hint_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_text_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -53,7 +53,7 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_edit_text"
+            android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -74,8 +74,8 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_next"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:text="@string/button_next" />
 
     </RelativeLayout>
 

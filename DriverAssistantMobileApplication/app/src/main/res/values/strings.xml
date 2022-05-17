@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DriverAssistantMobileApplication</string>
-    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="button_next">Next</string>
     <string name="button_cancel">Cancel</string>
@@ -8,4 +8,5 @@
     <string name="sign_in_with_your_account">Sign in with your account</string>
     <string name="forgot_email">Forgot email?</string>
     <string name="create_account">Create account</string>
+    <string name="logout">Logout</string>
 </resources>
