@@ -11,7 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.databinding.ActivityLoginBinding
 
-class Loginctivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
@@ -38,10 +38,19 @@ class Loginctivity : AppCompatActivity() {
     }
 
     private fun initializeButtons() {
-        nextAction()
+        loginAction()
+        createAccountAction()
     }
 
-    private fun nextAction() {
+    private fun createAccountAction() {
+        binding.createBtn.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun loginAction() {
         binding.nextButton.setOnClickListener {
             when {
                 TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {

@@ -30,7 +30,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun logoutAction() {
         binding.logoutBtn.setOnClickListener {
-            val intent = Intent(this, Loginctivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             Firebase.auth.signOut()
             startActivity(intent)
             finish()
