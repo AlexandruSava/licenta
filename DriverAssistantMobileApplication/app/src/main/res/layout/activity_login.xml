@@ -33,10 +33,12 @@
         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:hint="@string/hint_email">
+        android:layout_marginTop="24dp"
+        android:hint="@string/hint_email"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_input"
@@ -45,9 +47,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:hint="@string/hint_password"
         app:errorEnabled="true"
         app:passwordToggleEnabled="true">
