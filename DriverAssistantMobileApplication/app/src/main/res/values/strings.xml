@@ -16,4 +16,16 @@
     <string name="menu">Menu</string>
     <string name="dashboard">Dashboard</string>
     <string name="history">History</string>
+    <string name="_100">100</string>
+    <string name="driving_score">Driving Score</string>
+    <string name="your_driving_score_is_calculated_taking_into_account_the_score_and_duration_of_each_driving_session">Your driving score is calculated taking into account the score and duration of each driving session.</string>
+    <string name="traveled_distance">Traveled Distance</string>
+    <string name="the_total_driving_distance_you_drove_with_our_application">The total driving distance you drove with our application.</string>
+    <string name="_123_4_km">123.4 km</string>
+    <string name="average_speed">Average Speed</string>
+    <string name="your_average_speed_over_all_your_driving_sessions">Your average speed over all your driving sessions</string>
+    <string name="_75_km_h">75 km/h</string>
+    <string name="_40">+40%</string>
+    <string name="analysis_of_your_progress_over_last_10_driving_sessions">Analysis of your progress over last 10 driving sessions.</string>
+    <string name="driving_style">Driving Style</string>
 </resources>
