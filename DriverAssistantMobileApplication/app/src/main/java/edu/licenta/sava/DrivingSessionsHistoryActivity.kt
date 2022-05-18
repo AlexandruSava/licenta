@@ -79,6 +79,14 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun startSessionAction() {
+        val intent = Intent(this, DrivingSessionActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
             logoutAction()
@@ -86,6 +94,10 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.dashboard_item) {
             dashboardAction()
+            return true
+        }
+        if (item.itemId == R.id.start_session_item) {
+            startSessionAction()
             return true
         }
         return super.onOptionsItemSelected(item)

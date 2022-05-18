@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_drawer_menu"
-                app:title="Driving Sessions History" />
+                app:title="Dashboard" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <!--        Here goes the layout-->

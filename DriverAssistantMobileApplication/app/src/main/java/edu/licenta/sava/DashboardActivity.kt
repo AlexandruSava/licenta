@@ -26,6 +26,13 @@ class DashboardActivity : AppCompatActivity() {
         setBinding()
         setUserAndEmail()
         initializeToolbarAndMenu()
+        initializeButtons()
+    }
+
+    private fun initializeButtons() {
+        binding.startSessionBtn.setOnClickListener {
+            startSessionAction()
+        }
     }
 
     private fun initializeToolbarAndMenu() {
@@ -80,6 +87,14 @@ class DashboardActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun startSessionAction() {
+        val intent = Intent(this, DrivingSessionActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
             logoutAction()
@@ -87,6 +102,10 @@ class DashboardActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.history_item) {
             historyAction()
+            return true
+        }
+        if (item.itemId == R.id.start_session_item) {
+            startSessionAction()
             return true
         }
         return super.onOptionsItemSelected(item)

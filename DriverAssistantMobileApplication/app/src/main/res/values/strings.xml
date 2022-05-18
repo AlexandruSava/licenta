@@ -22,7 +22,6 @@
     <string name="traveled_distance">Traveled Distance</string>
     <string name="the_total_driving_distance_you_drove_with_our_application">The total driving distance you drove with our application.</string>
     <string name="_123_4_km">123.4 km</string>
-    <string name="average_speed">Average Speed</string>
     <string name="your_average_speed_over_all_your_driving_sessions">Your average speed over all your driving sessions</string>
     <string name="_75_km_h">75 km/h</string>
     <string name="_40">+40%</string>
@@ -31,4 +30,12 @@
     <string name="welcome_back">Welcome back</string>
     <string name="would_you_like_to_drive_again_with_driver_assistant">Would you like to drive again with Driver Assistant?</string>
     <string name="start_driving_session">Start Driving Session</string>
+    <string name="active_driving_session">Active Driving Session</string>
+    <string name="did_you_arrive_at_destination">Did you arrive at destination?</string>
+    <string name="finish_driving_session">Finish Driving Session</string>
+    <string name="speed">Speed</string>
+    <string name="average_speed">Average Speed</string>
+    <string name="time_elapsed">Time elapsed</string>
+    <string name="warnings">Warnings</string>
+    <string name="danger_message">This is a warning. You were speeding by 15 km/h. You put your life in danger. Reduce speed.</string>
 </resources>
