@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_drawer_menu"
-                app:title="Dashboard" />
+                app:title="Driving Sessions History" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <!--        Here goes the layout-->
@@ -38,15 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="This is just a text" />
+                android:text="History 1" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="50dp"
-                android:text="This is just another text" />
-
+                android:text="History 2" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

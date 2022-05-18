@@ -4,11 +4,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/car_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/car_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DriverAssistantMobileApplication">
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+        <activity
+            android:name=".DrivingSessionsHistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />

@@ -11,4 +11,9 @@
     <string name="logout">Logout</string>
     <string name="register_a_new_account">Register a new account</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="show_navigation">Show navigation drawer</string>
+    <string name="hide_navigation">Hide navigation drawer</string>
+    <string name="menu">Menu</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="history">History</string>
 </resources>

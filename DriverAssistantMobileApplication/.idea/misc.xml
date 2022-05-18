@@ -5,12 +5,18 @@
       <map>
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/drawable/ic_car_logo_background.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/drawable/ic_drawer_menu.xml" value="0.1" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_sessions_history.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_login.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/navigation_header.xml" value="0.33" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/navigation_menu.xml" value="0.18034447821681865" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/menu/navigation_menu.xml" value="0.5" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/mipmap-anydpi-v26/ic_car_logo.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1435" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>
     </option>

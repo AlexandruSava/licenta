@@ -2,7 +2,6 @@ package edu.licenta.sava
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,11 +10,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.databinding.ActivityDashboardBinding
+import edu.licenta.sava.databinding.ActivityDrivingSessionsHistoryBinding
 
-class DashboardActivity : AppCompatActivity() {
+class DrivingSessionsHistoryActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDashboardBinding
+    private lateinit var binding: ActivityDrivingSessionsHistoryBinding
     private lateinit var drawer: DrawerLayout
 
     private lateinit var userId: String
@@ -56,11 +55,11 @@ class DashboardActivity : AppCompatActivity() {
             .findViewById<TextView>(R.id.email_menu)
             .text = email
 
-        navigation.setCheckedItem(R.id.dashboard_item)
+        navigation.setCheckedItem(R.id.history_item)
     }
 
     private fun setBinding() {
-        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        binding = ActivityDrivingSessionsHistoryBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
     }
@@ -72,8 +71,8 @@ class DashboardActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun historyAction() {
-        val intent = Intent(this, DrivingSessionsHistoryActivity::class.java)
+    private fun dashboardAction() {
+        val intent = Intent(this, DashboardActivity::class.java)
         intent.putExtra("userId", userId)
         intent.putExtra("email", email)
         startActivity(intent)
@@ -85,8 +84,8 @@ class DashboardActivity : AppCompatActivity() {
             logoutAction()
             return true
         }
-        if (item.itemId == R.id.history_item) {
-            historyAction()
+        if (item.itemId == R.id.dashboard_item) {
+            dashboardAction()
             return true
         }
         return super.onOptionsItemSelected(item)

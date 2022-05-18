@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_item"
+        android:title="@string/menu">
+        <menu>
+            <item
+                android:id="@+id/dashboard_item"
+                android:checkable="true"
+                android:icon="@drawable/ic_dashboard"
+                android:title="@string/dashboard"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/history_item"
+                android:checkable="true"
+                android:icon="@drawable/ic_history"
+                android:title="@string/history"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/logout_item"
+        android:checkable="true"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout"
+        app:showAsAction="ifRoom" />
+</menu>
