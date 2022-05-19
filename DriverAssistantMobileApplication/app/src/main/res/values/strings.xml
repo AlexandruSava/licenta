@@ -38,4 +38,13 @@
     <string name="time_elapsed">Time elapsed</string>
     <string name="warnings">Warnings</string>
     <string name="danger_message">This is a warning. You were speeding by 15 km/h. You put your life in danger. Reduce speed.</string>
+    <string name="driving_session">Driving Session</string>
+    <string name="results">Results</string>
+    <string name="_17_3_km">17.3 km</string>
+    <string name="_01_24">01:24</string>
+    <string name="_23_4_km_h">23.4 km/h</string>
+    <string name="_16_warnings">16 Warnings</string>
+    <string name="more_details">More Details</string>
+    <string name="delete">Delete</string>
+    <string name="_14th_july_2022">14th July 2022 14:27</string>
 </resources>

@@ -8,6 +8,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.databinding.ActivityDrivingSessionsHistoryBinding
@@ -15,6 +17,8 @@ import edu.licenta.sava.databinding.ActivityDrivingSessionsHistoryBinding
 class DrivingSessionsHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDrivingSessionsHistoryBinding
+    private lateinit var listAdapterDrivingSessions: DrivingSessionsHistoryAdapter
+    private lateinit var recyclerView: RecyclerView
     private lateinit var drawer: DrawerLayout
 
     private lateinit var userId: String
@@ -25,6 +29,37 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         setBinding()
         setUserAndEmail()
         initializeToolbarAndMenu()
+
+        initList()
+    }
+
+    private fun initList() {
+        val sensorData = SensorData(12,12,12.2, 12.2, 12)
+        val warningEvent = WarningEvent("Hello", 123L, sensorData)
+        val warningEvents = ArrayList<WarningEvent>()
+        warningEvents.add(warningEvent)
+        val drivingSession1 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
+        val drivingSession2 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
+        val drivingSession3 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
+        val drivingSessionsList = ArrayList<DrivingSession>()
+        drivingSessionsList.add(drivingSession1)
+        drivingSessionsList.add(drivingSession2)
+        drivingSessionsList.add(drivingSession3)
+
+        val model: MutableList<DrivingSession> = drivingSessionsList.reversed().toMutableList()
+
+        listAdapterDrivingSessions = DrivingSessionsHistoryAdapter(model) {
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("email", email)
+            intent.putExtra("index", it.index)
+            startActivity(intent)
+        }
+
+        recyclerView = findViewById(R.id.history_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerView.adapter = listAdapterDrivingSessions
+
     }
 
     private fun initializeToolbarAndMenu() {
