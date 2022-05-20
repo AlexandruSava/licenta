@@ -3,6 +3,7 @@ package edu.licenta.sava.view.activity
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -11,12 +12,26 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.R
+import edu.licenta.sava.controller.DashboardController
+import edu.licenta.sava.database.DatabaseController
+import edu.licenta.sava.database.FirebaseController
 import edu.licenta.sava.databinding.ActivityDashboardBinding
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class DashboardActivity : AppCompatActivity() {
+
+    private val dashboardController = DashboardController()
+    private val databaseController = DatabaseController()
+    private val firebaseController = FirebaseController()
 
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var drawer: DrawerLayout
@@ -24,13 +39,69 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var email: String
 
+    private val database =
+        Firebase.database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("driving_sessions")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         setBinding()
         setUserAndEmail()
+        getDataFromFirebase()
         initializeToolbarAndMenu()
         initializeButtons()
         requestLocationPermissions()
+    }
+
+    private fun getDataFromFirebase() {
+        val reference = database.child(userId)
+        val context = this
+
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                firebaseController.getFirebaseDataAndWriteDrivingSessionsDataInLocalStorage(
+                    snapshot,
+                    userId,
+                    context
+                )
+                getStorageData()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Database Error!")
+            }
+
+        })
+    }
+
+    private fun getStorageData() {
+        val initialized = databaseController.verifyPresenceOfALocalFile(this, userId)
+        if (initialized) {
+            val drivingSessionsList =
+                databaseController.getDrivingSessionsDataFromLocalStorage(this, userId)
+            if (drivingSessionsList.isNotEmpty()) {
+                val decimalFormat = DecimalFormat("#.##")
+                decimalFormat.roundingMode = RoundingMode.DOWN
+                var distance = decimalFormat.format(dashboardController.calculateTotalDistance(drivingSessionsList))
+                distance += " km"
+
+                var calculateAverageSpeed = dashboardController.calculateAverageSpeed(drivingSessionsList).toString()
+                calculateAverageSpeed += " km/h"
+
+                // Display data to user
+                binding.score.text = dashboardController.calculateUserScore(drivingSessionsList).toString()
+                binding.averageSpeed.text = calculateAverageSpeed
+                binding.distance.text = distance
+
+                if (drivingSessionsList.size >= 10) {
+                    binding.improvement.text = dashboardController.calculateImprovement(drivingSessionsList)
+                } else {
+                    binding.improvement.text = "-"
+                }
+
+            }
+        }
     }
 
     private fun requestLocationPermissions() {
