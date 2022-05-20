@@ -1,9 +1,12 @@
 package edu.licenta.sava.view.activity
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -27,6 +30,31 @@ class DashboardActivity : AppCompatActivity() {
         setUserAndEmail()
         initializeToolbarAndMenu()
         initializeButtons()
+        requestLocationPermissions()
+    }
+
+    private fun requestLocationPermissions() {
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    Toast.makeText(applicationContext, "Access fine", Toast.LENGTH_LONG).show()
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    Toast.makeText(applicationContext, "Access coarse", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    Toast.makeText(applicationContext, "Access denied", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
     private fun initializeButtons() {
