@@ -51,6 +51,8 @@ class DatabaseController {
             0.toDouble(),
             0
         )
+        val fakeSensorDataList = ArrayList<SensorData>()
+        fakeSensorDataList.add(fakeSensorData)
         val fakeWarningEventsList = arrayListOf(
             WarningEvent(
                 "",
@@ -68,6 +70,8 @@ class DatabaseController {
             0f,
             0f,
             0f,
+            0f,
+            fakeSensorDataList,
             fakeWarningEventsList
         )
         val fakeData = ArrayList<DrivingSession>()

@@ -40,12 +40,14 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
 
     private fun initList() {
         val sensorData = SensorData(12,12,12.2, 12.2, 12)
+        val sensorDataList = ArrayList<SensorData>()
+        sensorDataList.add(sensorData)
         val warningEvent = WarningEvent("Hello", 123L, sensorData)
         val warningEvents = ArrayList<WarningEvent>()
         warningEvents.add(warningEvent)
-        val drivingSession1 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
-        val drivingSession2 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
-        val drivingSession3 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
+        val drivingSession1 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
+        val drivingSession2 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
+        val drivingSession3 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
         val drivingSessionsList = ArrayList<DrivingSession>()
         drivingSessionsList.add(drivingSession1)
         drivingSessionsList.add(drivingSession2)

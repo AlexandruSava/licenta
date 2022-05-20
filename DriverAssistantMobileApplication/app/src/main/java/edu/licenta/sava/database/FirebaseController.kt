@@ -29,14 +29,29 @@ class FirebaseController : Application() {
 
         var sensorDataBuilder: SensorData
         var warningEventBuilder: WarningEvent
+        var sensorDataListBuilder: ArrayList<SensorData>
         var warningEventListBuilder: ArrayList<WarningEvent>
         var drivingSessionBuilder: DrivingSession
         val drivingSessionsListBuilder = ArrayList<DrivingSession>()
 
         for (drivingSession in drivingSessionsData) {
 
-            val warningEventsList = drivingSession.child("warningEventsList").children
+            val sensorDataList = drivingSession.child("sensorDataList").children
+            sensorDataListBuilder = ArrayList()
 
+            for (sensorData in sensorDataList) {
+                sensorDataBuilder = SensorData(
+                    sensorData.child("speed").value.toString().toInt(),
+                    sensorData.child("outsideTemp").value.toString().toInt(),
+                    sensorData.child("latitude").value.toString().toDouble(),
+                    sensorData.child("longitude").value.toString().toDouble(),
+                    sensorData.child("speedLimit").value.toString().toInt()
+                )
+
+                sensorDataListBuilder.add(sensorDataBuilder)
+            }
+
+            val warningEventsList = drivingSession.child("warningEventsList").children
             warningEventListBuilder = ArrayList()
 
             for (warningEvent in warningEventsList) {
@@ -68,6 +83,8 @@ class FirebaseController : Application() {
                 drivingSession.child("averageSpeed").value.toString().toFloat(),
                 drivingSession.child("finalScore").value.toString().toFloat(),
                 drivingSession.child("finalMaximumScore").value.toString().toFloat(),
+                drivingSession.child("distanceTraveled").value.toString().toFloat(),
+                sensorDataListBuilder,
                 warningEventListBuilder
             )
 

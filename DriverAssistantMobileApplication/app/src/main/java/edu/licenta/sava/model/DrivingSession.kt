@@ -12,5 +12,7 @@ data class DrivingSession(
     val averageSpeed: Float,
     val finalScore: Float,
     val finalMaximumScore: Float,
+    val distanceTraveled: Float,
+    val sensorDataList: ArrayList<SensorData>,
     val warningEventsList: ArrayList<WarningEvent>,
 ) : Serializable

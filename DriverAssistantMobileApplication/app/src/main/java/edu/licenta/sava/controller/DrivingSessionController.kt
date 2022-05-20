@@ -14,6 +14,7 @@ class DrivingSessionController {
     private lateinit var userId: String
     private lateinit var email: String
     private var startTime: Long = 0
+    private var duration: Long = 0
     private var drivingSessionScore: Float = 100f
     private var maxDrivingSessionScore: Float = 100f
     private var warningEventsList = ArrayList<WarningEvent>()
@@ -40,6 +41,7 @@ class DrivingSessionController {
         val endTime = System.currentTimeMillis()
         val duration = endTime - startTime
         val averageSpeed = getAverageSpeed()
+        val distanceTraveled: Float = averageSpeed * duration / 1000 / 60 / 60
         drivingSession = DrivingSession(
             1,
             userId,
@@ -50,12 +52,13 @@ class DrivingSessionController {
             averageSpeed,
             drivingSessionScore,
             maxDrivingSessionScore,
+            distanceTraveled,
+            sensorDataList,
             warningEventsList
         )
-        clearSensorDataList()
     }
 
-    private fun getAverageSpeed(): Float {
+    fun getAverageSpeed(): Float {
         var sum = 0f
         for (sensorData in sensorDataList) {
             sum += sensorData.speed
@@ -68,10 +71,7 @@ class DrivingSessionController {
     fun addSensorData(sensorData: SensorData) {
         sensorDataList.add(sensorData)
         currentSensorData = sensorData
-    }
-
-    private fun clearSensorDataList() {
-        sensorDataList.clear()
+        duration = System.currentTimeMillis() - startTime
     }
 
     fun analyzeDrivingSession(): Float {
@@ -108,10 +108,12 @@ class DrivingSessionController {
     }
 
     private fun increaseDrivingScore() {
-        if (drivingSessionScore + basicScoreGain < maxDrivingSessionScore) {
-            drivingSessionScore += basicScoreGain
-        } else {
-            drivingSessionScore = maxDrivingSessionScore
+        if (currentSensorData.speed >= 15) {
+            if (drivingSessionScore + basicScoreGain < maxDrivingSessionScore) {
+                drivingSessionScore += basicScoreGain
+            } else {
+                drivingSessionScore = maxDrivingSessionScore
+            }
         }
     }
 
@@ -146,4 +148,9 @@ class DrivingSessionController {
     fun getDrivingSession(): DrivingSession {
         return drivingSession
     }
+
+    fun getDuration(): Long {
+        return duration
+    }
+
 }

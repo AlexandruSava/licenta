@@ -23,6 +23,9 @@ import edu.licenta.sava.database.DatabaseController
 import edu.licenta.sava.databinding.ActivityDrivingSessionBinding
 import edu.licenta.sava.model.Notification
 import edu.licenta.sava.model.SensorData
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import kotlin.random.Random
 
 class DrivingSessionActivity : AppCompatActivity() {
@@ -97,25 +100,34 @@ class DrivingSessionActivity : AppCompatActivity() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
+                // Get current sensor data
                 currentLocation = locationResult.lastLocation
                 val latitude = currentLocation.latitude
                 val longitude = currentLocation.longitude
                 speed = ((currentLocation.speed) * 3.6).toInt()
                 temperature = Random.nextInt(30)
-
-                binding.speed.text = speed.toString()
-
-
                 val speedLimit = getSpeedLimit(latitude, longitude)
-                binding.averageSpeed.text = speedLimit.toString()
 
+                // Create and add to the list the current SensorData
                 sensorData = SensorData(speed, temperature, latitude, longitude, speedLimit)
-
                 drivingSessionController.addSensorData(sensorData)
+
+                // Process data
                 val score: Float = drivingSessionController.analyzeDrivingSession()
 
+                val simpleDateFormat = SimpleDateFormat("mm:ss")
+                val durationFormatted : String = simpleDateFormat.format(drivingSessionController.getDuration())
+
+                val decimalFormat = DecimalFormat("#.##")
+                decimalFormat.roundingMode = RoundingMode.DOWN
+                val averageSpeed = decimalFormat.format(drivingSessionController.getAverageSpeed())
+
+                // Show data to user
                 lastScore = score
                 binding.score.text = lastScore.toInt().toString()
+                binding.speed.text = speed.toString()
+                binding.averageSpeed.text = averageSpeed.toString()
+                binding.timeElapsed.text = durationFormatted
 
                 setScoreTextViewColor(score.toInt())
                 setWarningEventTextViews()
@@ -220,10 +232,10 @@ class DrivingSessionActivity : AppCompatActivity() {
     }
 
     private fun getSpeedLimit(latitude: Double, longitude: Double): Int {
-        val speedLimits = arrayOf(30, 50, 70)
+        val speedLimits = arrayOf(30, 50, 70, 100, 130)
 
-        if (i % 3 == 0) {
-            val random = Random.nextInt(2)
+        if (i % 10 == 0) {
+            val random = Random.nextInt(3) + 2
             speedLimit = speedLimits.elementAt(random)
         }
 
