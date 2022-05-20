@@ -1,4 +1,4 @@
-package edu.licenta.sava
+package edu.licenta.sava.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,50 +7,25 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.databinding.ActivityLoginBinding
+import edu.licenta.sava.databinding.ActivityRegisterBinding
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
 
-        verifyLoggedInUser()
         initializeButtons()
     }
 
-    private fun verifyLoggedInUser() {
-        val user = Firebase.auth.currentUser
-
-        if (user != null) {
-            user.email?.let { startApplication(user, it) }
-        }
-    }
-
-    private fun setBinding() {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-    }
-
     private fun initializeButtons() {
-        loginAction()
-        createAccountAction()
+        alreadyHaveAnAccountAction()
+        registerAction()
     }
 
-    private fun createAccountAction() {
-        binding.createBtn.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    private fun loginAction() {
+    private fun registerAction() {
         binding.nextButton.setOnClickListener {
             when {
                 TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
@@ -74,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                     val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
 
                     FirebaseAuth.getInstance()
-                        .signInWithEmailAndPassword(email, password)
+                        .createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val firebaseUser: FirebaseUser = task.result!!.user!!
@@ -99,6 +74,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun alreadyHaveAnAccountAction() {
+        binding.loginBtn.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun setBinding() {
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
+
     private fun startApplication(
         firebaseUser: FirebaseUser,
         email: String
@@ -110,5 +99,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 }

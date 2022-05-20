@@ -1,4 +1,4 @@
-package edu.licenta.sava
+package edu.licenta.sava.view.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import edu.licenta.sava.model.DrivingSession
+import edu.licenta.sava.R
 import java.text.SimpleDateFormat
 import java.util.*
 

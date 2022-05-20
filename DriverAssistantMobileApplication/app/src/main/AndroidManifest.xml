@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
         <activity
-            android:name=".DrivingSessionActivity"
+            android:name=".view.activity.DrivingSessionActivity"
             android:exported="false" />
         <activity
-            android:name=".DrivingSessionsHistoryActivity"
+            android:name=".view.activity.DrivingSessionsHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".view.activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".view.activity.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

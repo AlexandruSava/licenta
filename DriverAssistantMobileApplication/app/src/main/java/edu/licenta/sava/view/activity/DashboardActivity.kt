@@ -1,4 +1,4 @@
-package edu.licenta.sava
+package edu.licenta.sava.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,17 +8,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.databinding.ActivityDrivingSessionsHistoryBinding
+import edu.licenta.sava.R
+import edu.licenta.sava.databinding.ActivityDashboardBinding
 
-class DrivingSessionsHistoryActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDrivingSessionsHistoryBinding
-    private lateinit var listAdapterDrivingSessions: DrivingSessionsHistoryAdapter
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: ActivityDashboardBinding
     private lateinit var drawer: DrawerLayout
 
     private lateinit var userId: String
@@ -29,37 +26,13 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         setBinding()
         setUserAndEmail()
         initializeToolbarAndMenu()
-
-        initList()
+        initializeButtons()
     }
 
-    private fun initList() {
-        val sensorData = SensorData(12,12,12.2, 12.2, 12)
-        val warningEvent = WarningEvent("Hello", 123L, sensorData)
-        val warningEvents = ArrayList<WarningEvent>()
-        warningEvents.add(warningEvent)
-        val drivingSession1 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
-        val drivingSession2 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
-        val drivingSession3 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, warningEvents )
-        val drivingSessionsList = ArrayList<DrivingSession>()
-        drivingSessionsList.add(drivingSession1)
-        drivingSessionsList.add(drivingSession2)
-        drivingSessionsList.add(drivingSession3)
-
-        val model: MutableList<DrivingSession> = drivingSessionsList.reversed().toMutableList()
-
-        listAdapterDrivingSessions = DrivingSessionsHistoryAdapter(model) {
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("email", email)
-            intent.putExtra("index", it.index)
-            startActivity(intent)
+    private fun initializeButtons() {
+        binding.startSessionBtn.setOnClickListener {
+            startSessionAction()
         }
-
-        recyclerView = findViewById(R.id.history_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = listAdapterDrivingSessions
-
     }
 
     private fun initializeToolbarAndMenu() {
@@ -90,11 +63,11 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
             .findViewById<TextView>(R.id.email_menu)
             .text = email
 
-        navigation.setCheckedItem(R.id.history_item)
+        navigation.setCheckedItem(R.id.dashboard_item)
     }
 
     private fun setBinding() {
-        binding = ActivityDrivingSessionsHistoryBinding.inflate(layoutInflater)
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
     }
@@ -106,8 +79,8 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun dashboardAction() {
-        val intent = Intent(this, DashboardActivity::class.java)
+    private fun historyAction() {
+        val intent = Intent(this, DrivingSessionsHistoryActivity::class.java)
         intent.putExtra("userId", userId)
         intent.putExtra("email", email)
         startActivity(intent)
@@ -127,8 +100,8 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
             logoutAction()
             return true
         }
-        if (item.itemId == R.id.dashboard_item) {
-            dashboardAction()
+        if (item.itemId == R.id.history_item) {
+            historyAction()
             return true
         }
         if (item.itemId == R.id.start_session_item) {

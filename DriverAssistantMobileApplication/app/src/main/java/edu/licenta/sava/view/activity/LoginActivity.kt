@@ -1,4 +1,4 @@
-package edu.licenta.sava
+package edu.licenta.sava.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,25 +7,50 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import edu.licenta.sava.databinding.ActivityRegisterBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import edu.licenta.sava.databinding.ActivityLoginBinding
 
-class RegisterActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
 
+        verifyLoggedInUser()
         initializeButtons()
     }
 
-    private fun initializeButtons() {
-        alreadyHaveAnAccountAction()
-        registerAction()
+    private fun verifyLoggedInUser() {
+        val user = Firebase.auth.currentUser
+
+        if (user != null) {
+            user.email?.let { startApplication(user, it) }
+        }
     }
 
-    private fun registerAction() {
+    private fun setBinding() {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
+
+    private fun initializeButtons() {
+        loginAction()
+        createAccountAction()
+    }
+
+    private fun createAccountAction() {
+        binding.createBtn.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun loginAction() {
         binding.nextButton.setOnClickListener {
             when {
                 TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
@@ -49,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
 
                     FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email, password)
+                        .signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val firebaseUser: FirebaseUser = task.result!!.user!!
@@ -74,20 +99,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun alreadyHaveAnAccountAction() {
-        binding.loginBtn.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    private fun setBinding() {
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-    }
-
     private fun startApplication(
         firebaseUser: FirebaseUser,
         email: String
@@ -99,4 +110,5 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 }

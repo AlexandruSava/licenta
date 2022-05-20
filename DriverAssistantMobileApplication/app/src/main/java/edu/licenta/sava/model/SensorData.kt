@@ -1,4 +1,4 @@
-package edu.licenta.sava
+package edu.licenta.sava.model
 
 data class SensorData(
     val speed: Int,
