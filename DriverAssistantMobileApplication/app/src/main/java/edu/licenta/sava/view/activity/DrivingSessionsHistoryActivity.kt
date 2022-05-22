@@ -12,14 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.model.DrivingSession
 import edu.licenta.sava.R
-import edu.licenta.sava.model.SensorData
-import edu.licenta.sava.model.WarningEvent
+import edu.licenta.sava.database.DatabaseController
+import edu.licenta.sava.database.FirebaseController
 import edu.licenta.sava.databinding.ActivityDrivingSessionsHistoryBinding
+import edu.licenta.sava.model.DrivingSession
 import edu.licenta.sava.view.adapter.DrivingSessionsHistoryAdapter
 
 class DrivingSessionsHistoryActivity : AppCompatActivity() {
+
+    private val databaseController = DatabaseController()
+    private val firebaseController = FirebaseController()
 
     private lateinit var binding: ActivityDrivingSessionsHistoryBinding
     private lateinit var listAdapterDrivingSessions: DrivingSessionsHistoryAdapter
@@ -35,38 +38,42 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         setUserAndEmail()
         initializeToolbarAndMenu()
 
-        initList()
+        getStorageDataAndInitList()
     }
 
-    private fun initList() {
-        val sensorData = SensorData(12,12,12.2, 12.2, 12)
-        val sensorDataList = ArrayList<SensorData>()
-        sensorDataList.add(sensorData)
-        val warningEvent = WarningEvent("Hello", 123L, sensorData)
-        val warningEvents = ArrayList<WarningEvent>()
-        warningEvents.add(warningEvent)
-        val drivingSession1 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
-        val drivingSession2 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
-        val drivingSession3 = DrivingSession(1, "abc", "abc", 123L, 123L, 123L, 100.0f, 100.0f, 123f, 10f, sensorDataList, warningEvents )
-        val drivingSessionsList = ArrayList<DrivingSession>()
-        drivingSessionsList.add(drivingSession1)
-        drivingSessionsList.add(drivingSession2)
-        drivingSessionsList.add(drivingSession3)
+    private fun getStorageDataAndInitList() {
+        val initialized = databaseController.verifyPresenceOfALocalFile(this, userId)
+        if (initialized) {
+            val drivingSessionsList =
+                databaseController.getDrivingSessionsDataFromLocalStorage(this, userId)
+            drivingSessionsList.sortWith(compareBy { it.endTime })
+            initList(drivingSessionsList)
+        }
+    }
 
+    private fun initList(drivingSessionsList: ArrayList<DrivingSession>) {
         val model: MutableList<DrivingSession> = drivingSessionsList.reversed().toMutableList()
 
-        listAdapterDrivingSessions = DrivingSessionsHistoryAdapter(model) {
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("email", email)
-            intent.putExtra("index", it.index)
-            startActivity(intent)
-        }
+        listAdapterDrivingSessions =
+            DrivingSessionsHistoryAdapter(
+                model,
+                this::moreDetailsAction,
+                this::deleteDrivingSession
+            )
 
-        recyclerView = findViewById(R.id.history_recycler_view)
+        recyclerView = binding.historyRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerView.adapter = listAdapterDrivingSessions
+    }
 
+    private fun moreDetailsAction(drivingSession: DrivingSession) {
+        // TODO - More Details Intent
+        println("MORE DETAILS! $drivingSession")
+    }
+
+    private fun deleteDrivingSession(drivingSession: DrivingSession) {
+        println("DELETE! $drivingSession")
+        firebaseController.deleteDrivingSession(drivingSession)
     }
 
     private fun initializeToolbarAndMenu() {
