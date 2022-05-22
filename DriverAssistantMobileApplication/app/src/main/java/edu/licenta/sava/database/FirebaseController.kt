@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.model.DrivingSession
@@ -13,6 +15,11 @@ import edu.licenta.sava.model.WarningEvent
 class FirebaseController : Application() {
 
     private val databaseController = DatabaseController()
+
+    private val database =
+        Firebase
+            .database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("driving_sessions")
 
     override fun onCreate() {
         super.onCreate()
@@ -98,5 +105,30 @@ class FirebaseController : Application() {
             userId,
             drivingSessionsListBuilder
         )
+    }
+
+    fun deleteDrivingSession(drivingSession: DrivingSession) {
+        val database = database.child(drivingSession.userId)
+
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val children = snapshot.children
+
+                for (child in children) {
+                    if (child.child("endTime").value == drivingSession.endTime) {
+                        val index = child.key.toString()
+                        println("INDEX: $index")
+                        database.child(index).removeValue()
+                    }
+                }
+
+                database.removeEventListener(this)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Database Error!")
+            }
+        })
+
     }
 }
