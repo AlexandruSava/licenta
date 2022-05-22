@@ -2,6 +2,7 @@ package edu.licenta.sava.view.activity
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -89,8 +90,10 @@ class DashboardActivity : AppCompatActivity() {
                 var calculateAverageSpeed = dashboardController.calculateAverageSpeed(drivingSessionsList).toString()
                 calculateAverageSpeed += " km/h"
 
+                val userScore = dashboardController.calculateUserScore(drivingSessionsList)
+
                 // Display data to user
-                binding.score.text = dashboardController.calculateUserScore(drivingSessionsList).toString()
+                binding.score.text = userScore.toString()
                 binding.averageSpeed.text = calculateAverageSpeed
                 binding.distance.text = distance
 
@@ -99,6 +102,9 @@ class DashboardActivity : AppCompatActivity() {
                 } else {
                     binding.improvement.text = "-"
                 }
+
+                // Set proper color to score
+                setScoreTextViewColor(userScore)
 
             }
         }
@@ -216,6 +222,16 @@ class DashboardActivity : AppCompatActivity() {
         if (!userIdString.isNullOrEmpty() && !emailString.isNullOrEmpty()) {
             userId = userIdString
             email = emailString
+        }
+    }
+
+    private fun setScoreTextViewColor(score: Int) {
+        when (score) {
+            in 85..100 -> binding.score.setTextColor(Color.parseColor("#FF4BC100"))
+            in 75..84 -> binding.score.setTextColor(Color.parseColor("#FF64DD17"))
+            in 60..74 -> binding.score.setTextColor(Color.parseColor("#FFE1BC00"))
+            in 50..59 -> binding.score.setTextColor(Color.parseColor("#FFE14F00"))
+            in 0..49 -> binding.score.setTextColor(Color.parseColor("#E10000"))
         }
     }
 }
