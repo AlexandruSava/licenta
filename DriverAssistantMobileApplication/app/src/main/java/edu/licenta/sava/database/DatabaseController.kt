@@ -104,15 +104,19 @@ class DatabaseController {
         return false
     }
 
-    fun getDriverSessionBySessionIndex(
+    fun getDrivingSessionBySessionEndTime(
         context: Context,
         userId: String,
-        index: Int
+        endTime: Long
     ): DrivingSession {
         val initializedDatabase = verifyPresenceOfALocalFile(context, userId)
         if (initializedDatabase) {
             val drivingSessionsList = readDrivingSessionsDataFromLocalStorage(context, userId)
-            return drivingSessionsList[index - 1]
+            for (drivingSession in drivingSessionsList) {
+                if (drivingSession.endTime == endTime) {
+                    return drivingSession
+                }
+            }
         }
         return getFakeDrivingSession().first()
     }
