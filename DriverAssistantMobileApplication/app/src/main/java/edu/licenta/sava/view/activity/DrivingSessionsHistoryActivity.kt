@@ -66,13 +66,7 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         recyclerView.adapter = listAdapterDrivingSessions
     }
 
-    private fun moreDetailsAction(drivingSession: DrivingSession) {
-        // TODO - More Details Intent
-        println("MORE DETAILS! $drivingSession")
-    }
-
     private fun deleteDrivingSession(drivingSession: DrivingSession) {
-        println("DELETE! $drivingSession")
         firebaseController.deleteDrivingSession(drivingSession)
     }
 
@@ -111,6 +105,14 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         binding = ActivityDrivingSessionsHistoryBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+    }
+
+    private fun moreDetailsAction(drivingSession: DrivingSession) {
+        val intent = Intent(this, DrivingSessionDetailedActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        intent.putExtra("endTime", drivingSession.endTime)
+        startActivity(intent)
     }
 
     private fun logoutAction() {
