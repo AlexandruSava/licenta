@@ -80,7 +80,7 @@ class DrivingSessionsHistoryAdapter(
             val date = formatterDate.format(drivingSession.endTime)
             val duration = formatterDuration.format(drivingSession.duration)
             val distance = decimalFormat.format(drivingSession.distanceTraveled) + " km"
-            val score = decimalFormat.format(drivingSession.finalScore)
+            val score = drivingSession.finalScore.toInt().toString()
             val warnings = drivingSession.warningEventsList.size.toString() + " Warnings"
 
             // Display data
