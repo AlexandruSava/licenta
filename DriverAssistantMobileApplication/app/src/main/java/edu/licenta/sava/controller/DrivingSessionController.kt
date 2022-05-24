@@ -69,7 +69,11 @@ class DrivingSessionController {
     }
 
     fun addSensorData(sensorData: SensorData) {
-        sensorDataList.add(sensorData)
+        if (sensorDataList.last().speed < 5 && sensorData.speed < 5) {
+            Log.d("Car", "Car standing.")
+        } else {
+            sensorDataList.add(sensorData)
+        }
         currentSensorData = sensorData
         duration = System.currentTimeMillis() - startTime
     }
