@@ -2,11 +2,12 @@ package edu.licenta.sava.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.ktx.auth
@@ -45,6 +46,10 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
     private fun initializeButtons() {
         binding.backBtn.setOnClickListener {
             historyAction()
+        }
+
+        binding.seeDetailedMapBtn.setOnClickListener {
+            seeDetailedMapAction()
         }
     }
 
@@ -99,6 +104,9 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
             binding.timeElapsed.text = duration
             binding.distance.text = distance
             binding.score.text = score
+
+            // Color the score
+            setScoreTextViewColor(currentDrivingSession.finalScore.toInt(), binding.score)
         }
     }
 
@@ -130,7 +138,7 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
             .findViewById<TextView>(R.id.email_menu)
             .text = email
 
-        navigation.setCheckedItem(R.id.dashboard_item)
+        navigation.setCheckedItem(R.id.history_item)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -140,6 +148,10 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.history_item) {
             historyAction()
+            return true
+        }
+        if (item.itemId == R.id.dashboard_item) {
+            dashboardAction()
             return true
         }
         if (item.itemId == R.id.start_session_item) {
@@ -161,11 +173,37 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun dashboardAction() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     private fun startSessionAction() {
         val intent = Intent(this, DrivingSessionActivity::class.java)
         intent.putExtra("userId", userId)
         intent.putExtra("email", email)
         startActivity(intent)
         finish()
+    }
+
+    private fun seeDetailedMapAction() {
+        val intent = Intent(this, DrivingSessionDetailedMapActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        intent.putExtra("endTime", endTime)
+        startActivity(intent)
+    }
+
+    private fun setScoreTextViewColor(score: Int, textView: TextView) {
+        when (score) {
+            in 85..100 -> textView.setTextColor(Color.parseColor("#FF4BC100"))
+            in 75..84 -> textView.setTextColor(Color.parseColor("#FF64DD17"))
+            in 60..74 -> textView.setTextColor(Color.parseColor("#FFE1BC00"))
+            in 50..59 -> textView.setTextColor(Color.parseColor("#FFE14F00"))
+            in 0..49 -> textView.setTextColor(Color.parseColor("#E10000"))
+        }
     }
 }
