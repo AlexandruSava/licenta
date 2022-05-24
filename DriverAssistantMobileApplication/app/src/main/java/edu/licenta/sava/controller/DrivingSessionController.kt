@@ -24,8 +24,8 @@ class DrivingSessionController {
     private var sensorDataList = ArrayList<SensorData>()
     private lateinit var currentSensorData: SensorData
 
-    private val basicScoreReduction: Float = 0.3f
-    private val basicScoreGain: Float = 0.3f
+    private val basicScoreReduction: Float = 0.2f
+    private val basicScoreGain: Float = 0.15f
 
     private val basicPower: Float = 2f
 
@@ -75,24 +75,26 @@ class DrivingSessionController {
     }
 
     fun analyzeDrivingSession(): Float {
-        val mistakeRatio = if (currentSensorData.outsideTemp < 3) 2f else 1f
+        if (currentSensorData.speed > 15) {
+            val mistakeRatio = if (currentSensorData.outsideTemp < 3) 2f else 1f
 
-        val speedRatio =
-            (currentSensorData.speed / (currentSensorData.speedLimit + 10f).toDouble()).toFloat()
+            val speedRatio =
+                (currentSensorData.speed / (currentSensorData.speedLimit + 10).toDouble()).toFloat()
 
-        if (speedRatio > 1) {
-            speedingTimes++
-            reduceDrivingScore(mistakeRatio, speedRatio)
-            issueSpeedWarningEvent()
-        } else {
-            increaseDrivingScore()
+            if (speedRatio > 1) {
+                speedingTimes++
+                reduceDrivingScore(mistakeRatio, speedRatio)
+                issueSpeedWarningEvent()
+            } else {
+                increaseDrivingScore()
+            }
+
+            Log.d(
+                "SensorData:", "index: ${sensorDataList.size}, speedRatio: $speedRatio, " +
+                        "drivingSessionScore: $drivingSessionScore, maxDrivingSessionScore: " +
+                        "$maxDrivingSessionScore"
+            )
         }
-
-        Log.d(
-            "SensorData:", "index: ${sensorDataList.size}, speedRatio: $speedRatio, " +
-                    "drivingSessionScore: $drivingSessionScore, maxDrivingSessionScore: " +
-                    "$maxDrivingSessionScore"
-        )
 
         return drivingSessionScore
     }
