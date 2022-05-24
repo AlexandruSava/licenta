@@ -233,10 +233,10 @@ class DrivingSessionActivity : AppCompatActivity() {
     }
 
     private fun getSpeedLimit(latitude: Double, longitude: Double): Int {
-        val speedLimits = arrayOf(30, 50, 70, 100, 130)
+        val speedLimits = arrayOf(30, 40, 50, 60, 60)
 
-        if (i % 10 == 0) {
-            val random = Random.nextInt(3) + 2
+        if (i % 5 == 0) {
+            val random = Random.nextInt(5)
             speedLimit = speedLimits.elementAt(random)
         }
 
