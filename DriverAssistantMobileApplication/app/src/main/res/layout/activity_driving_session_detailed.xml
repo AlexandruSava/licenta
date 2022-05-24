@@ -90,7 +90,7 @@
                         android:paddingHorizontal="8dp">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/finish_btn"
+                            android:id="@+id/see_detailed_map_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/see_detailed_map" />
