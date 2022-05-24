@@ -116,7 +116,8 @@ class DrivingSessionActivity : AppCompatActivity() {
                 val score: Float = drivingSessionController.analyzeDrivingSession()
 
                 val simpleDateFormat = SimpleDateFormat("mm:ss")
-                val durationFormatted : String = simpleDateFormat.format(drivingSessionController.getDuration())
+                val durationFormatted: String =
+                    simpleDateFormat.format(drivingSessionController.getDuration())
 
                 val decimalFormat = DecimalFormat("#.##")
                 decimalFormat.roundingMode = RoundingMode.DOWN
