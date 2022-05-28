@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.LearningActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.DrivingSessionDetailedMapActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

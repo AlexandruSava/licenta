@@ -50,4 +50,5 @@
     <string name="back">Back</string>
     <string name="driving_session_details">Driving Session Details</string>
     <string name="see_detailed_map">See Detailed Map</string>
+    <string name="learn">Learn</string>
 </resources>

@@ -7,13 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,7 +39,8 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var email: String
 
     private val database =
-        Firebase.database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
+        Firebase
+            .database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("driving_sessions")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,10 +82,13 @@ class DashboardActivity : AppCompatActivity() {
             if (drivingSessionsList.isNotEmpty()) {
                 val decimalFormat = DecimalFormat("#.##")
                 decimalFormat.roundingMode = RoundingMode.DOWN
-                var distance = decimalFormat.format(dashboardController.calculateTotalDistance(drivingSessionsList))
+                var distance = decimalFormat.format(
+                    dashboardController.calculateTotalDistance(drivingSessionsList)
+                )
                 distance += " km"
 
-                var calculateAverageSpeed = dashboardController.calculateAverageSpeed(drivingSessionsList).toString()
+                var calculateAverageSpeed =
+                    dashboardController.calculateAverageSpeed(drivingSessionsList).toString()
                 calculateAverageSpeed += " km/h"
 
                 val userScore = dashboardController.calculateUserScore(drivingSessionsList)
@@ -97,7 +99,8 @@ class DashboardActivity : AppCompatActivity() {
                 binding.distance.text = distance
 
                 if (drivingSessionsList.size >= 10) {
-                    binding.improvement.text = dashboardController.calculateImprovement(drivingSessionsList)
+                    binding.improvement.text =
+                        dashboardController.calculateImprovement(drivingSessionsList)
                 } else {
                     binding.improvement.text = "-"
                 }
@@ -115,13 +118,13 @@ class DashboardActivity : AppCompatActivity() {
         ) { permissions ->
             when {
                 permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                    Toast.makeText(applicationContext, "Access fine", Toast.LENGTH_LONG).show()
+                    // Toast.makeText(applicationContext, "Access fine", Toast.LENGTH_LONG).show()
                 }
                 permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                    Toast.makeText(applicationContext, "Access coarse", Toast.LENGTH_LONG).show()
+                    // Toast.makeText(applicationContext, "Access coarse", Toast.LENGTH_LONG).show()
                 }
                 else -> {
-                    Toast.makeText(applicationContext, "Access denied", Toast.LENGTH_LONG).show()
+                    // Toast.makeText(applicationContext, "Access denied", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -199,6 +202,14 @@ class DashboardActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun learningAction() {
+        val intent = Intent(this, LearningActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
             logoutAction()
@@ -210,6 +221,10 @@ class DashboardActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.start_session_item) {
             startSessionAction()
+            return true
+        }
+        if (item.itemId == R.id.learning_item) {
+            learningAction()
             return true
         }
         return super.onOptionsItemSelected(item)

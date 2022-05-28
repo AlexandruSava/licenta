@@ -136,15 +136,12 @@ class DrivingSessionActivity : AppCompatActivity() {
 
             private fun setWarningEventTextViews() {
                 val warningEvent = drivingSessionController.getLastWarningEvent()
-                var title = "Error"
                 var message = "Error"
                 when (warningEvent.type) {
                     Notification.GOOD_DRIVING.name.lowercase() -> {
-                        title = Notification.GOOD_DRIVING.title
                         message = Notification.GOOD_DRIVING.message
                     }
                     Notification.SPEEDING.name.lowercase() -> {
-                        title = Notification.SPEEDING.title
                         message = Notification.SPEEDING.message
                     }
                 }

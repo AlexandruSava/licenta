@@ -43,7 +43,7 @@ class MapsFragment : Fragment() {
                 .position(start)
                 .title("START")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-        )?.tag = 1
+        )?.tag = 0
 
         for (warningEvent in warningEventsList) {
             val latitude = warningEvent.sensorData.latitude
@@ -56,7 +56,7 @@ class MapsFragment : Fragment() {
                     .position(latLng)
                     .title(message)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-            )?.tag = 0
+            )?.tag = 1
         }
 
         for (i in 1 until sensorDataList.size) {
@@ -80,7 +80,7 @@ class MapsFragment : Fragment() {
                 .clickable(true)
                 .addAll(latLngList)
                 .width(10F)
-        ).tag = 1
+        ).tag = 3
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(start))
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f))

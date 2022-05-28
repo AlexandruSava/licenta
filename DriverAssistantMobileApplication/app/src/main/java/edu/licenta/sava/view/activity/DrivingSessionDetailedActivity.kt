@@ -158,7 +158,19 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
             startSessionAction()
             return true
         }
+        if (item.itemId == R.id.learning_item) {
+            learningAction()
+            return true
+        }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun learningAction() {
+        val intent = Intent(this, LearningActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
     }
 
     private fun logoutAction() {
