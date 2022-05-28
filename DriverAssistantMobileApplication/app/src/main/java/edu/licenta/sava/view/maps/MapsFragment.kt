@@ -48,8 +48,8 @@ class MapsFragment : Fragment() {
         for (warningEvent in warningEventsList) {
             val latitude = warningEvent.sensorData.latitude
             val longitude = warningEvent.sensorData.longitude
-            val message =
-                "Speed: " + warningEvent.sensorData.speed.toString() + "KM/H, Limit: " + warningEvent.sensorData.speedLimit + "KM/H"
+            val message = "Speed: " + warningEvent.sensorData.speed.toString() +
+                    "KM/H, Limit: " + warningEvent.sensorData.speedLimit + "KM/H"
             val latLng = LatLng(latitude, longitude)
             googleMap.addMarker(
                 MarkerOptions()
@@ -59,9 +59,11 @@ class MapsFragment : Fragment() {
             )?.tag = 0
         }
 
-        for (sensorData in sensorDataList) {
-            val latLng = LatLng(sensorData.latitude, sensorData.longitude)
-            latLngList.add(latLng)
+        for (i in 1 until sensorDataList.size) {
+            if (!(sensorDataList[i].speed < 5 && sensorDataList[i - 1].speed < 5)) {
+                val latLng = LatLng(sensorDataList[i].latitude, sensorDataList[i].longitude)
+                latLngList.add(latLng)
+            }
         }
 
         latLngList.add(stop)
