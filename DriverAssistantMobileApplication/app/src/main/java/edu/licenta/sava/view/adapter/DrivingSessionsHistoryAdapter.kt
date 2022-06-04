@@ -48,9 +48,9 @@ class DrivingSessionsHistoryAdapter(
                     .setMessage(longMessage)
                     .setPositiveButton(positiveText) { _, _ ->
                         run {
-                            onDeleteClick(drivingSessionsList[adapterPosition])
-                            drivingSessionsList.removeAt(adapterPosition)
-                            notifyItemRemoved(adapterPosition)
+                            onDeleteClick(drivingSessionsList[absoluteAdapterPosition])
+                            drivingSessionsList.removeAt(absoluteAdapterPosition)
+                            notifyItemRemoved(absoluteAdapterPosition)
                         }
                     }
                     .setNegativeButton(negativeText, null)
@@ -58,7 +58,7 @@ class DrivingSessionsHistoryAdapter(
             }
 
             itemView.findViewById<MaterialButton>(R.id.more_details_btn).setOnClickListener {
-                onMoreDetailsClick(drivingSessionsList[adapterPosition])
+                onMoreDetailsClick(drivingSessionsList[absoluteAdapterPosition])
             }
 
         }
