@@ -21,65 +21,77 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initializeButtons() {
-        alreadyHaveAnAccountAction()
-        registerAction()
+        binding.loginBtn.setOnClickListener {
+            alreadyHaveAnAccountAction()
+        }
+
+        binding.forgotPasswordBtn.setOnClickListener {
+            forgotPasswordAction()
+        }
+
+        binding.nextButton.setOnClickListener {
+            registerAction()
+        }
     }
 
     private fun registerAction() {
-        binding.nextButton.setOnClickListener {
-            when {
-                TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this,
-                        "Please enter email.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        when {
+            TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
+                Toast.makeText(
+                    this,
+                    "Please enter email.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-                TextUtils.isEmpty(binding.passwordInput.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this,
-                        "Please enter password.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            TextUtils.isEmpty(binding.passwordInput.text.toString().trim { it <= ' ' }) -> {
+                Toast.makeText(
+                    this,
+                    "Please enter password.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-                else -> {
-                    val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
-                    val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
+            else -> {
+                val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
+                val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
 
-                    FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val firebaseUser: FirebaseUser = task.result!!.user!!
+                FirebaseAuth.getInstance()
+                    .createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                                Toast.makeText(
-                                    this,
-                                    "Login successful",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                            Toast.makeText(
+                                this,
+                                "Login successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                                startApplication(firebaseUser, email)
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    task.exception!!.message.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                            startApplication(firebaseUser, email)
+                        } else {
+                            Toast.makeText(
+                                this,
+                                task.exception!!.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                }
+                    }
             }
         }
     }
 
     private fun alreadyHaveAnAccountAction() {
-        binding.loginBtn.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun forgotPasswordAction() {
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
 
     private fun setBinding() {

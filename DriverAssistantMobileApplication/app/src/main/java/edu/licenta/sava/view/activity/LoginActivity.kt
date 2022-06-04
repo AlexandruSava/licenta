@@ -38,64 +38,76 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initializeButtons() {
-        loginAction()
-        createAccountAction()
-    }
+        binding.nextButton.setOnClickListener {
+            loginAction()
+        }
 
-    private fun createAccountAction() {
         binding.createBtn.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
+            createAccountAction()
+        }
+
+        binding.forgotPasswordBtn.setOnClickListener {
+            forgotPasswordAction()
         }
     }
 
+    private fun createAccountAction() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun forgotPasswordAction() {
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun loginAction() {
-        binding.nextButton.setOnClickListener {
-            when {
-                TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this,
-                        "Please enter email.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                TextUtils.isEmpty(binding.passwordInput.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this,
-                        "Please enter password.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                else -> {
-                    val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
-                    val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
-
-                    FirebaseAuth.getInstance()
-                        .signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val firebaseUser: FirebaseUser = task.result!!.user!!
-
-                                Toast.makeText(
-                                    this,
-                                    "Login successful",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                                startApplication(firebaseUser, email)
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    task.exception!!.message.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                }
+        when {
+            TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
+                Toast.makeText(
+                    this,
+                    "Please enter email.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+
+            TextUtils.isEmpty(binding.passwordInput.text.toString().trim { it <= ' ' }) -> {
+                Toast.makeText(
+                    this,
+                    "Please enter password.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else -> {
+                val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
+                val password: String = binding.passwordInput.text.toString().trim { it <= ' ' }
+
+                FirebaseAuth.getInstance()
+                    .signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
+
+                            Toast.makeText(
+                                this,
+                                "Login successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            startApplication(firebaseUser, email)
+                        } else {
+                            Toast.makeText(
+                                this,
+                                task.exception!!.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+            }
+
         }
     }
 
