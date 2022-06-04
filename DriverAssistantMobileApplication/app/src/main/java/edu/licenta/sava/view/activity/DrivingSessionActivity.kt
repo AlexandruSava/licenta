@@ -1,6 +1,7 @@
 package edu.licenta.sava.view.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -97,6 +98,7 @@ class DrivingSessionActivity : AppCompatActivity() {
         }
 
         locationCallback = object : LocationCallback() {
+            @SuppressLint("SimpleDateFormat")
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
@@ -168,8 +170,12 @@ class DrivingSessionActivity : AppCompatActivity() {
 
         stopLocationUpdates()
 
-        drivingSessionController.stopDrivingSession()
+        val endTime = System.currentTimeMillis()
+
+        drivingSessionController.stopDrivingSession(endTime)
+
         val drivingSession = drivingSessionController.getDrivingSession()
+
         DatabaseController()
             .writeDrivingSessionsDataInLocalStorage(
                 this,
@@ -178,9 +184,11 @@ class DrivingSessionActivity : AppCompatActivity() {
                 drivingSession = drivingSession
             )
 
-        val intent = Intent(this, DashboardActivity::class.java)
+        val intent = Intent(this, DrivingSessionDetailedActivity::class.java)
         intent.putExtra("userId", userId)
         intent.putExtra("email", email)
+        intent.putExtra("endTime", endTime)
+        intent.putExtra("version", 1)
         startActivity(intent)
         finish()
     }

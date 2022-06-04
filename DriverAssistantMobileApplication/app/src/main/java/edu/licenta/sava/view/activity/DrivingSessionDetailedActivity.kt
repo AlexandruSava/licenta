@@ -34,6 +34,8 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
 
     private lateinit var currentDrivingSession: DrivingSession
 
+    private var version: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
@@ -63,10 +65,12 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
         val userIdString = intent.getStringExtra("userId")
         val emailString = intent.getStringExtra("email")
         val endTimeLong = intent.getLongExtra("endTime", 0L)
+        val versionInt = intent.getIntExtra("version", 0)
         if (!userIdString.isNullOrEmpty() && !emailString.isNullOrEmpty()) {
             userId = userIdString
             email = emailString
             endTime = endTimeLong
+            version = versionInt
         }
     }
 
@@ -181,7 +185,15 @@ class DrivingSessionDetailedActivity : AppCompatActivity() {
     }
 
     private fun historyAction() {
-        onBackPressed()
+        // If user is redirected here by a finished driving session
+        if (version == 1) {
+            val intent = Intent(this, DrivingSessionsHistoryActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("email", email)
+            startActivity(intent)
+        } else {
+            onBackPressed()
+        }
         finish()
     }
 

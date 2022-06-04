@@ -37,8 +37,7 @@ class DrivingSessionController {
         maxDrivingSessionScore = 100f
     }
 
-    fun stopDrivingSession() {
-        val endTime = System.currentTimeMillis()
+    fun stopDrivingSession(endTime: Long) {
         val duration = endTime - startTime
         val averageSpeed = getAverageSpeed()
         val distanceTraveled: Float = averageSpeed * duration / 1000 / 60 / 60

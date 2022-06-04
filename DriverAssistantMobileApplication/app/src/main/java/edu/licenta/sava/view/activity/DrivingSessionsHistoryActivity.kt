@@ -112,6 +112,7 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         intent.putExtra("userId", userId)
         intent.putExtra("email", email)
         intent.putExtra("endTime", drivingSession.endTime)
+        intent.putExtra("version", 0)
         startActivity(intent)
     }
 
