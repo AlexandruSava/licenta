@@ -11,15 +11,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.R
-import edu.licenta.sava.databinding.ActivityLearningBinding
+import edu.licenta.sava.databinding.ActivityLearningArticleBinding
 
-class LearningActivity : AppCompatActivity() {
+class LearningArticleActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLearningBinding
+    private lateinit var binding: ActivityLearningArticleBinding
     private lateinit var drawer: DrawerLayout
 
     private lateinit var userId: String
     private lateinit var email: String
+    private lateinit var article: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class LearningActivity : AppCompatActivity() {
     }
 
     private fun setBinding() {
-        binding = ActivityLearningBinding.inflate(layoutInflater)
+        binding = ActivityLearningArticleBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
     }
@@ -38,9 +39,14 @@ class LearningActivity : AppCompatActivity() {
     private fun setUserAndEmail() {
         val userIdString = intent.getStringExtra("userId")
         val emailString = intent.getStringExtra("email")
-        if (!userIdString.isNullOrEmpty() && !emailString.isNullOrEmpty()) {
+        val articleString = intent.getStringExtra("article")
+        if (!userIdString.isNullOrEmpty()
+            && !emailString.isNullOrEmpty()
+            && !articleString.isNullOrEmpty()
+        ) {
             userId = userIdString
             email = emailString
+            article = articleString
         }
     }
 
@@ -139,12 +145,9 @@ class LearningActivity : AppCompatActivity() {
     }
 
     private fun initializeButtons() {
-        binding.seatbeltLearnBtn.setOnClickListener {
-            val intent = Intent(this, LearningArticleActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("email", email)
-            intent.putExtra("article", "seatbelt")
-            startActivity(intent)
+        binding.backBtn.setOnClickListener {
+            onBackPressed()
+            finish()
         }
     }
 }

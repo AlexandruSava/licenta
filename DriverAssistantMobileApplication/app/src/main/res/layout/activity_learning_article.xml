@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_drawer_menu"
-                app:title="Learn" />
+                app:title="Learning Article" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
@@ -70,7 +70,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:text="@string/learn_how_to_drive_better" />
+                                    android:text="@string/article_title" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                                     android:ellipsize="end"
                                     android:justificationMode="inter_word"
                                     android:maxLines="7"
-                                    android:text="@string/improve_your_skills_long_text" />
+                                    android:text="@string/lorem_ipsum" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                                     android:ellipsize="end"
                                     android:justificationMode="inter_word"
                                     android:maxLines="7"
-                                    android:text="@string/good_articles_long_text" />
+                                    android:text="@string/lorem_ipsum" />
 
                             </LinearLayout>
 
@@ -99,91 +99,20 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:minHeight="148dp">
+                    android:layout_marginTop="12dp"
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    app:autoPlay="false"
+                    app:videoId="y3InF19dzlM" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            android:paddingBottom="8dp">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginEnd="8dp"
-                                app:srcCompat="@drawable/ic_safety" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_weight="1.0"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    style="?attr/textAppearanceHeadline6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/seatbelt" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
-                                    android:text="@string/wear_your_seatbelt_always" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitXY"
-                            app:backgroundTint="@color/material_on_surface_emphasis_medium"
-                            app:backgroundTintMode="add"
-                            app:srcCompat="@drawable/seatbelt" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="8dp"
-                            android:maxLines="3"
-                            android:text="@string/wear_your_seatbelt_long_text" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingStart="8dp">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/seatbelt_learn_btn"
-                                style="?attr/borderlessButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:text="@string/learn" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/return_string" />
 
             </LinearLayout>
         </ScrollView>
