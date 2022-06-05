@@ -14,17 +14,26 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.ParkingPositionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ForgotPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activity.LearningArticleActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.LearningActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.DrivingSessionDetailedMapActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB6H__jWIiESkjj80RM_OTnm6H7AUUBFN4" />
-
         <activity
             android:name=".view.activity.DrivingSessionDetailedActivity"
             android:exported="false"
@@ -55,6 +64,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB6H__jWIiESkjj80RM_OTnm6H7AUUBFN4" />
     </application>
 
 </manifest>

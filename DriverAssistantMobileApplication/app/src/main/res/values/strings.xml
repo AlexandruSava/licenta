@@ -51,4 +51,17 @@
     <string name="driving_session_details">Driving Session Details</string>
     <string name="see_detailed_map">See Detailed Map</string>
     <string name="learn">Learn</string>
+    <string name="learn_how_to_drive_better">Become a better driver</string>
+    <string name="improve_your_skills_long_text">Improving your driving skills does not mean only travelling more kilometers. You need to be aware of the car\'s physics and many other safety concepts that apply in this domain.</string>
+    <string name="good_articles_long_text">We have prepared you a set of good articles to read, with video examples, in order to better understand your car.</string>
+    <string name="wear_your_seatbelt_long_text">Wearing your seatbelt can really make the difference between death and minor injuries. Wear your seatbelt, always, even in the back seat!</string>
+    <string name="wear_your_seatbelt_always">Wear your seatbelt. Always!</string>
+    <string name="seatbelt">Seatbelt</string>
+    <string name="article_title">Article Title</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text.</string>
+    <string name="return_string">Return</string>
+    <string name="send_email">Send email</string>
+    <string name="forgot_password_enter_your_email_please">Forgot password? Enter your email please.</string>
+    <string name="last_position_known">Last known position of your vehicle</string>
+    <string name="parking_position">Parking Position</string>
 </resources>

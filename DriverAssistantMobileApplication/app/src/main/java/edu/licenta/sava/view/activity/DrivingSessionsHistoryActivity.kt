@@ -116,6 +116,14 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun parkingAction() {
+        val intent = Intent(this, ParkingPositionActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     private fun logoutAction() {
         val intent = Intent(this, LoginActivity::class.java)
         Firebase.auth.signOut()
@@ -162,6 +170,10 @@ class DrivingSessionsHistoryActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.learning_item) {
             learningAction()
+            return true
+        }
+        if (item.itemId == R.id.parking_item) {
+            parkingAction()
             return true
         }
         return super.onOptionsItemSelected(item)

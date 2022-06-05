@@ -11,11 +11,14 @@
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_session.xml" value="0.33" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_session_detailed.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_session_detailed_map.xml" value="0.33" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_session_detailed_map.xml" value="0.1" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_driving_sessions_history.xml" value="0.33" />
-        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_learning.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_forgot_password.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_learning.xml" value="0.33" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_learning_article.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_login.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_parking_position.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/card_driving_session.xml" value="0.5" />
         <entry key="..\:/Users/alexa/OneDrive/Desktop/licenta/licenta/DriverAssistantMobileApplication/app/src/main/res/layout/maps_fragment.xml" value="0.36666666666666664" />

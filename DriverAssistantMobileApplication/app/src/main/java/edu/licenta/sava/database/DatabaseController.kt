@@ -150,4 +150,16 @@ class DatabaseController {
 
         database.child(userId).setValue(drivingSessionsList)
     }
+
+    fun getLastDrivingSession(
+        context: Context,
+        userId: String
+    ): DrivingSession {
+        val initializedDatabase = verifyPresenceOfALocalFile(context, userId)
+        if (initializedDatabase) {
+            val drivingSessionsList = readDrivingSessionsDataFromLocalStorage(context, userId)
+            return drivingSessionsList.last()
+        }
+        return getFakeDrivingSession().first()
+    }
 }

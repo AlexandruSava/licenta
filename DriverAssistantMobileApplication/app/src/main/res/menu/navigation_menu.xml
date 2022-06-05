@@ -23,6 +23,12 @@
                 android:icon="@drawable/ic_book"
                 android:title="@string/learn"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/parking_item"
+                android:checkable="true"
+                android:icon="@drawable/ic_parking"
+                android:title="@string/parking_position"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 

@@ -210,6 +210,14 @@ class DashboardActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun parkingAction() {
+        val intent = Intent(this, ParkingPositionActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
             logoutAction()
@@ -225,6 +233,10 @@ class DashboardActivity : AppCompatActivity() {
         }
         if (item.itemId == R.id.learning_item) {
             learningAction()
+            return true
+        }
+        if (item.itemId == R.id.parking_item) {
+            parkingAction()
             return true
         }
         return super.onOptionsItemSelected(item)
