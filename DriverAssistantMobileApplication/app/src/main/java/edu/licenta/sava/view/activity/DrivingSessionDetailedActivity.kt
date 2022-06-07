@@ -13,7 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.R
-import edu.licenta.sava.database.DatabaseController
+import edu.licenta.sava.controller.DatabaseController
 import edu.licenta.sava.databinding.ActivityDrivingSessionDetailedBinding
 import edu.licenta.sava.model.DrivingSession
 import java.math.RoundingMode

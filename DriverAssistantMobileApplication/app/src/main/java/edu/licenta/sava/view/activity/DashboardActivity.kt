@@ -19,16 +19,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import edu.licenta.sava.R
-import edu.licenta.sava.controller.DashboardController
-import edu.licenta.sava.database.DatabaseController
-import edu.licenta.sava.database.FirebaseController
+import edu.licenta.sava.service.DashboardService
+import edu.licenta.sava.controller.DatabaseController
+import edu.licenta.sava.controller.FirebaseController
 import edu.licenta.sava.databinding.ActivityDashboardBinding
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class DashboardActivity : AppCompatActivity() {
 
-    private val dashboardController = DashboardController()
+    private val dashboardController = DashboardService()
     private val databaseController = DatabaseController()
     private val firebaseController = FirebaseController()
 

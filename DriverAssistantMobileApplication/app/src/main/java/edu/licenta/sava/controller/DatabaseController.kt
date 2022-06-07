@@ -1,4 +1,4 @@
-package edu.licenta.sava.database
+package edu.licenta.sava.controller
 
 import android.content.Context
 import android.util.Log

@@ -19,8 +19,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.controller.DrivingSessionController
-import edu.licenta.sava.database.DatabaseController
+import edu.licenta.sava.service.DrivingSessionService
+import edu.licenta.sava.controller.DatabaseController
 import edu.licenta.sava.databinding.ActivityDrivingSessionBinding
 import edu.licenta.sava.model.Notification
 import edu.licenta.sava.model.SensorData
@@ -35,7 +35,7 @@ class DrivingSessionActivity : AppCompatActivity() {
             .database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("driving_sessions")
 
-    private val drivingSessionController = DrivingSessionController()
+    private val drivingSessionController = DrivingSessionService()
 
     private lateinit var binding: ActivityDrivingSessionBinding
 

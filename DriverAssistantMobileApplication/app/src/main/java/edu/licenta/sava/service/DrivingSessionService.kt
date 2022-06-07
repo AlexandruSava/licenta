@@ -1,4 +1,4 @@
-package edu.licenta.sava.controller
+package edu.licenta.sava.service
 
 import android.util.Log
 import edu.licenta.sava.model.DrivingSession
@@ -7,7 +7,7 @@ import edu.licenta.sava.model.SensorData
 import edu.licenta.sava.model.WarningEvent
 import kotlin.math.pow
 
-class DrivingSessionController {
+class DrivingSessionService {
 
     private lateinit var drivingSession: DrivingSession
 

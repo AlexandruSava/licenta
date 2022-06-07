@@ -1,8 +1,8 @@
-package edu.licenta.sava.controller
+package edu.licenta.sava.service
 
 import edu.licenta.sava.model.DrivingSession
 
-class DashboardController {
+class DashboardService {
 
     fun calculateUserScore(drivingSessionList: ArrayList<DrivingSession>): Int {
         var totalDuration = 0L
