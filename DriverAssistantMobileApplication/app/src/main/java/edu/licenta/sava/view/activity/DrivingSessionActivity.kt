@@ -19,11 +19,11 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import edu.licenta.sava.service.DrivingSessionService
 import edu.licenta.sava.controller.DatabaseController
 import edu.licenta.sava.databinding.ActivityDrivingSessionBinding
 import edu.licenta.sava.model.Notification
 import edu.licenta.sava.model.SensorData
+import edu.licenta.sava.service.DrivingSessionService
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -35,7 +35,7 @@ class DrivingSessionActivity : AppCompatActivity() {
             .database("https://licenta-driver-assistant-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("driving_sessions")
 
-    private val drivingSessionController = DrivingSessionService()
+    private val drivingSessionService = DrivingSessionService()
 
     private lateinit var binding: ActivityDrivingSessionBinding
 
@@ -61,14 +61,27 @@ class DrivingSessionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setBinding()
         setUserAndEmail()
-
         initializeButtons()
         initializeLocation()
         startDrivingSession(userId, email)
     }
 
-    private fun initializeButtons() {
+    private fun setBinding() {
+        binding = ActivityDrivingSessionBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
 
+    private fun setUserAndEmail() {
+        val userIdString = intent.getStringExtra("userId")
+        val emailString = intent.getStringExtra("email")
+        if (!userIdString.isNullOrEmpty() && !emailString.isNullOrEmpty()) {
+            userId = userIdString
+            email = emailString
+        }
+    }
+
+    private fun initializeButtons() {
         val longMessage = "Do you want to end this session?"
         val positiveText = "End Session"
         val negativeText = "Cancel"
@@ -82,10 +95,40 @@ class DrivingSessionActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBinding() {
-        binding = ActivityDrivingSessionBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    private fun finishAction() {
+        sessionStarted = false
+
+        Log.d("SESSION", "SESSION HAS STOPPED")
+
+        stopLocationUpdates()
+
+        val endTime = System.currentTimeMillis()
+
+        drivingSessionService.stopDrivingSession(endTime)
+
+        val drivingSession = drivingSessionService.getDrivingSession()
+
+        DatabaseController()
+            .writeDrivingSessionsDataInLocalStorage(
+                this,
+                database,
+                userId = userId,
+                drivingSession = drivingSession
+            )
+
+        val intent = Intent(this, DrivingSessionDetailedActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("email", email)
+        intent.putExtra("endTime", endTime)
+        intent.putExtra("version", 1)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(
+            locationCallback
+        )
     }
 
     private fun initializeLocation() {
@@ -112,18 +155,18 @@ class DrivingSessionActivity : AppCompatActivity() {
 
                 // Create and add to the list the current SensorData
                 sensorData = SensorData(speed, temperature, latitude, longitude, speedLimit)
-                drivingSessionController.addSensorData(sensorData)
+                drivingSessionService.addSensorData(sensorData)
 
                 // Process data
-                val score: Float = drivingSessionController.analyzeDrivingSession()
+                val score: Float = drivingSessionService.analyzeDrivingSession()
 
                 val simpleDateFormat = SimpleDateFormat("mm:ss")
                 val durationFormatted: String =
-                    simpleDateFormat.format(drivingSessionController.getDuration())
+                    simpleDateFormat.format(drivingSessionService.getDuration())
 
                 val decimalFormat = DecimalFormat("#.##")
                 decimalFormat.roundingMode = RoundingMode.DOWN
-                val averageSpeed = decimalFormat.format(drivingSessionController.getAverageSpeed())
+                val averageSpeed = decimalFormat.format(drivingSessionService.getAverageSpeed())
 
                 // Show data to user
                 lastScore = score
@@ -136,8 +179,32 @@ class DrivingSessionActivity : AppCompatActivity() {
                 setWarningEventTextViews()
             }
 
+            private fun getSpeedLimit(latitude: Double, longitude: Double): Int {
+                val speedLimits = arrayOf(30, 40, 50, 60, 60)
+
+                if (i % 5 == 0) {
+                    val random = Random.nextInt(5)
+                    speedLimit = speedLimits.elementAt(random)
+                }
+
+                i++
+                Log.d("Location:", "Current position is $latitude, $longitude")
+
+                return speedLimit
+            }
+
+            private fun setScoreTextViewColor(score: Int) {
+                when (score) {
+                    in 85..100 -> binding.score.setTextColor(Color.parseColor("#FF4BC100"))
+                    in 75..84 -> binding.score.setTextColor(Color.parseColor("#FF64DD17"))
+                    in 60..74 -> binding.score.setTextColor(Color.parseColor("#FFE1BC00"))
+                    in 50..59 -> binding.score.setTextColor(Color.parseColor("#FFE14F00"))
+                    in 0..49 -> binding.score.setTextColor(Color.parseColor("#E10000"))
+                }
+            }
+
             private fun setWarningEventTextViews() {
-                val warningEvent = drivingSessionController.getLastWarningEvent()
+                val warningEvent = drivingSessionService.getLastWarningEvent()
                 var message = "Error"
                 when (warningEvent.type) {
                     Notification.GOOD_DRIVING.name.lowercase() -> {
@@ -148,49 +215,8 @@ class DrivingSessionActivity : AppCompatActivity() {
                     }
                 }
                 binding.warning.text = message
-
             }
         }
-    }
-
-    private fun setScoreTextViewColor(score: Int) {
-        when (score) {
-            in 85..100 -> binding.score.setTextColor(Color.parseColor("#FF4BC100"))
-            in 75..84 -> binding.score.setTextColor(Color.parseColor("#FF64DD17"))
-            in 60..74 -> binding.score.setTextColor(Color.parseColor("#FFE1BC00"))
-            in 50..59 -> binding.score.setTextColor(Color.parseColor("#FFE14F00"))
-            in 0..49 -> binding.score.setTextColor(Color.parseColor("#E10000"))
-        }
-    }
-
-    private fun finishAction() {
-        sessionStarted = false
-
-        Log.d("SESSION", "SESSION HAS STOPPED")
-
-        stopLocationUpdates()
-
-        val endTime = System.currentTimeMillis()
-
-        drivingSessionController.stopDrivingSession(endTime)
-
-        val drivingSession = drivingSessionController.getDrivingSession()
-
-        DatabaseController()
-            .writeDrivingSessionsDataInLocalStorage(
-                this,
-                database,
-                userId = userId,
-                drivingSession = drivingSession
-            )
-
-        val intent = Intent(this, DrivingSessionDetailedActivity::class.java)
-        intent.putExtra("userId", userId)
-        intent.putExtra("email", email)
-        intent.putExtra("endTime", endTime)
-        intent.putExtra("version", 1)
-        startActivity(intent)
-        finish()
     }
 
     private fun startDrivingSession(userId: String, email: String) {
@@ -200,7 +226,7 @@ class DrivingSessionActivity : AppCompatActivity() {
 
         listenLocationUpdates()
 
-        drivingSessionController.startDrivingSession(userId, email)
+        drivingSessionService.startDrivingSession(userId, email)
     }
 
     private fun listenLocationUpdates() {
@@ -220,34 +246,5 @@ class DrivingSessionActivity : AppCompatActivity() {
             locationCallback,
             Looper.getMainLooper()
         )
-    }
-
-    private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(
-            locationCallback
-        )
-    }
-
-    private fun setUserAndEmail() {
-        val userIdString = intent.getStringExtra("userId")
-        val emailString = intent.getStringExtra("email")
-        if (!userIdString.isNullOrEmpty() && !emailString.isNullOrEmpty()) {
-            userId = userIdString
-            email = emailString
-        }
-    }
-
-    private fun getSpeedLimit(latitude: Double, longitude: Double): Int {
-        val speedLimits = arrayOf(30, 40, 50, 60, 60)
-
-        if (i % 5 == 0) {
-            val random = Random.nextInt(5)
-            speedLimit = speedLimits.elementAt(random)
-        }
-
-        i++
-        Log.d("Location:", "Current position is $latitude, $longitude")
-
-        return speedLimit
     }
 }

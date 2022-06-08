@@ -73,6 +73,26 @@ class DrivingSessionService {
         duration = System.currentTimeMillis() - startTime
     }
 
+    fun getLastWarningEvent(): WarningEvent {
+        return if (speedingTimes > 0) {
+            warningEventsList.last()
+        } else {
+            WarningEvent(
+                Notification.GOOD_DRIVING.name.lowercase(),
+                System.currentTimeMillis(),
+                currentSensorData
+            )
+        }
+    }
+
+    fun getDrivingSession(): DrivingSession {
+        return drivingSession
+    }
+
+    fun getDuration(): Long {
+        return duration
+    }
+
     fun analyzeDrivingSession(): Float {
         if (currentSensorData.speed > 15) {
             val mistakeRatio = if (currentSensorData.outsideTemp < 3) 2f else 1f
@@ -98,6 +118,22 @@ class DrivingSessionService {
         return drivingSessionScore
     }
 
+    private fun reduceDrivingScore(mistakeRatio: Float, speedRatio: Float) {
+        val mistakeScoreReduction = basicPower.pow(basicScoreReduction * mistakeRatio * speedRatio)
+
+        if (mistakeScoreReduction * 0.3f > maxDrivingSessionScore) {
+            maxDrivingSessionScore = 0f
+        } else {
+            maxDrivingSessionScore -= mistakeScoreReduction * 0.3f
+        }
+
+        if (mistakeScoreReduction > drivingSessionScore) {
+            drivingSessionScore = 0f
+        } else {
+            drivingSessionScore -= mistakeScoreReduction
+        }
+    }
+
     private fun issueSpeedWarningEvent() {
         val warningEvent = WarningEvent(
             Notification.SPEEDING.name.lowercase(),
@@ -117,41 +153,4 @@ class DrivingSessionService {
             }
         }
     }
-
-    private fun reduceDrivingScore(mistakeRatio: Float, speedRatio: Float) {
-        val mistakeScoreReduction = basicPower.pow(basicScoreReduction * mistakeRatio * speedRatio)
-
-        if (mistakeScoreReduction * 0.3f > maxDrivingSessionScore) {
-            maxDrivingSessionScore = 0f
-        } else {
-            maxDrivingSessionScore -= mistakeScoreReduction * 0.3f
-        }
-
-        if (mistakeScoreReduction > drivingSessionScore) {
-            drivingSessionScore = 0f
-        } else {
-            drivingSessionScore -= mistakeScoreReduction
-        }
-    }
-
-    fun getLastWarningEvent(): WarningEvent {
-        return if (speedingTimes > 0) {
-            warningEventsList.last()
-        } else {
-            WarningEvent(
-                Notification.GOOD_DRIVING.name.lowercase(),
-                System.currentTimeMillis(),
-                currentSensorData
-            )
-        }
-    }
-
-    fun getDrivingSession(): DrivingSession {
-        return drivingSession
-    }
-
-    fun getDuration(): Long {
-        return duration
-    }
-
 }

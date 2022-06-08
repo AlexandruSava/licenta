@@ -18,9 +18,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
-
         verifyLoggedInUser()
         initializeButtons()
+    }
+
+    private fun setBinding() {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
     }
 
     private fun verifyLoggedInUser() {
@@ -31,23 +36,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBinding() {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-    }
-
     private fun initializeButtons() {
-        binding.nextButton.setOnClickListener {
-            loginAction()
-        }
-
         binding.createBtn.setOnClickListener {
             createAccountAction()
         }
 
         binding.forgotPasswordBtn.setOnClickListener {
             forgotPasswordAction()
+        }
+
+        binding.nextButton.setOnClickListener {
+            loginAction()
         }
     }
 
@@ -107,7 +106,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
             }
-
         }
     }
 

@@ -16,8 +16,13 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
-
         initializeButtons()
+    }
+
+    private fun setBinding() {
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
     }
 
     private fun initializeButtons() {
@@ -32,6 +37,18 @@ class RegisterActivity : AppCompatActivity() {
         binding.nextButton.setOnClickListener {
             registerAction()
         }
+    }
+
+    private fun alreadyHaveAnAccountAction() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun forgotPasswordAction() {
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun registerAction() {
@@ -79,25 +96,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
             }
         }
-    }
-
-    private fun alreadyHaveAnAccountAction() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun forgotPasswordAction() {
-        val intent = Intent(this, ForgotPasswordActivity::class.java)
-        startActivity(intent)
-        finish()
-
-    }
-
-    private fun setBinding() {
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
     }
 
     private fun startApplication(
