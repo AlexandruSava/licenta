@@ -106,11 +106,11 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/back_btn"
+                            style="?attr/materialButtonOutlinedStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/back"
-                            style="?attr/materialButtonOutlinedStyle"/>
+                            android:text="@string/back" />
 
                     </LinearLayout>
                 </LinearLayout>
