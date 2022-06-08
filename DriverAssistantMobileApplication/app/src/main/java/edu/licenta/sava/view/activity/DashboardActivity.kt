@@ -34,7 +34,7 @@ open class DashboardActivity : DrawerLayoutActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setBinding()
-        getDataFromFirebase()
+        getDataFromFirebaseAndStoreItLocallyThenGetStorageData()
         initializeToolbarAndMenu(
             binding.toolbar,
             binding.drawer,
@@ -51,7 +51,7 @@ open class DashboardActivity : DrawerLayoutActivity() {
         setContentView(view)
     }
 
-    private fun getDataFromFirebase() {
+    private fun getDataFromFirebaseAndStoreItLocallyThenGetStorageData() {
         val reference = database.child(userId)
         val context = this
 
@@ -62,13 +62,14 @@ open class DashboardActivity : DrawerLayoutActivity() {
                     userId,
                     context
                 )
-                getStorageData()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e("Firebase", "Database Error!")
             }
         })
+
+        getStorageData()
     }
 
     private fun getStorageData() {
