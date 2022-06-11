@@ -66,6 +66,7 @@
                                 android:paddingTop="8dp">
 
                                 <TextView
+                                    android:id="@+id/article_title"
                                     style="?attr/textAppearanceHeadline5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -73,23 +74,23 @@
                                     android:text="@string/article_title" />
 
                                 <TextView
+                                    android:id="@+id/article_first_paragraph"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="8dp"
                                     android:ellipsize="end"
                                     android:justificationMode="inter_word"
-                                    android:maxLines="7"
                                     android:text="@string/lorem_ipsum" />
 
                                 <TextView
+                                    android:id="@+id/article_second_paragraph"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="8dp"
                                     android:ellipsize="end"
                                     android:justificationMode="inter_word"
-                                    android:maxLines="7"
                                     android:text="@string/lorem_ipsum" />
 
                             </LinearLayout>
@@ -100,12 +101,12 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/youtube_player"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
 
-                    app:autoPlay="false"
-                    app:videoId="y3InF19dzlM" />
+                    app:autoPlay="false" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/back_btn"

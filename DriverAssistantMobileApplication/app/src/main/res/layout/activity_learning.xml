@@ -185,6 +185,93 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minHeight="148dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:paddingBottom="8dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginEnd="8dp"
+                                app:srcCompat="@drawable/ic_car" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1.0"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="?attr/textAppearanceHeadline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/understeering" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="@string/slow_down_approach_the_curves_carefully" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitXY"
+                            app:backgroundTint="@color/material_on_surface_emphasis_medium"
+                            app:backgroundTintMode="add"
+                            app:srcCompat="@drawable/understeer" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:maxLines="3"
+                            android:text="@string/understeering_long_text" />
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/understeering_btn"
+                                style="?attr/borderlessButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:text="@string/learn" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
             </LinearLayout>
         </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

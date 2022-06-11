@@ -36,5 +36,13 @@ class LearningActivity : DrawerLayoutActivity() {
             intent.putExtra("article", "seatbelt")
             startActivity(intent)
         }
+
+        binding.understeeringBtn.setOnClickListener {
+            val intent = Intent(this, LearningArticleActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("email", email)
+            intent.putExtra("article", "understeering")
+            startActivity(intent)
+        }
     }
 }
