@@ -1,6 +1,7 @@
 package edu.licenta.sava.view.activity
 
 import android.os.Bundle
+import edu.licenta.sava.R
 import edu.licenta.sava.controller.DatabaseController
 import edu.licenta.sava.databinding.ActivityParkingPositionBinding
 import edu.licenta.sava.model.DrivingSession
@@ -25,6 +26,7 @@ class ParkingPositionActivity : DrawerLayoutActivity() {
             screenId
         )
         getStorageData()
+        setTextView()
     }
 
     private fun setBinding() {
@@ -41,6 +43,12 @@ class ParkingPositionActivity : DrawerLayoutActivity() {
                     this,
                     userId
                 )
+        }
+    }
+
+    private fun setTextView() {
+        if (currentDrivingSession.sensorDataList.last().latitude.toInt() == 0) {
+            binding.parkingText.text = getString(R.string.no_information_available)
         }
     }
 

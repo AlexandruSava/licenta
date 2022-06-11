@@ -56,7 +56,6 @@
     <string name="good_articles_long_text">We have prepared you a set of good articles to read, with video examples, in order to better understand your car.</string>
     <string name="wear_your_seatbelt_long_text">Wearing your seatbelt can really make the difference between death and minor injuries. Wear your seatbelt, always, even in the back seat!</string>
     <string name="wear_your_seatbelt_always">Wear your seatbelt. Always!</string>
-    <string name="seatbelt">Seatbelt</string>
     <string name="article_title">Article Title</string>
     <string name="lorem_ipsum">Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text. Lorem ipsum dolor with a lot of text.</string>
     <string name="return_string">Return</string>
@@ -64,4 +63,13 @@
     <string name="forgot_password_enter_your_email_please">Forgot password? Enter your email please.</string>
     <string name="last_position_known">Last known position of your vehicle</string>
     <string name="parking_position">Parking Position</string>
+    <string name="slow_down_approach_the_curves_carefully">Slow down, approach the curves carefully!</string>
+    <string name="understeering_long_text">Speeding into a curve might not be a good idea. In many cases, your car may understeer and fail to follow the desired trajectory.</string>
+    <string name="seatbelt">Seatbelt</string>
+    <string name="seatbelt_first_paragraph">Seatbelt should be worn at all times. According to a case study conducted by NHTSA in USA, the national use rate of the seatbelt in 2021 was at 90.4%. According to the same source, approximately 15.000 lives were saved by them and unfortunately, in more than 50% of the fatal accidents, the victims were not wearing a seatbelt. If you are not convinced yet, here are more reasons:</string>
+    <string name="seatbelt_second_paragraph">"In case of an accident, not wearing your seatbelt may result in being totally ejected from the vehicle, which is extremely deadly. The whole safety system of your car is developed considering the passengers are wearing their seatbelts. In case of airbags deployment, their force may kill you. In an accident, acceleration may very a lot. A frontal accident may result in forces of 10g to 50g. That means your body weights more than 10 to 50 times than normal, basically you can be a projectile in the car. Not wearing your seatbelt in the back position, may result in both death of you and the passenger in front. More details can be followed in the video."</string>
+    <string name="understeering">Understeering</string>
+    <string name="understeering_first_paragraph">Understeering is one of the most common reasons for accidents. This is a physical phenomenon that happens when your car does not follow the desired trajectory due to momentum, steering angle and tires grip.To help you better understand the concept, we recommend you to follow the video below.</string>
+    <string name="understeering_second_paragraph">To prevent understeering, please slow down before curves, especially when the asphalt might be wet or icy or there is snow on the road. Most of us probably experienced this already in the winter time, when there is snow on the road, and at slow speed trying to take a turn, the car does not respond as it should and it is going more in front, following inertia.</string>
+    <string name="no_information_available">No information available.</string>
 </resources>

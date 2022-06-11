@@ -158,7 +158,9 @@ class DatabaseController {
         val initializedDatabase = verifyPresenceOfALocalFile(context, userId)
         if (initializedDatabase) {
             val drivingSessionsList = readDrivingSessionsDataFromLocalStorage(context, userId)
-            return drivingSessionsList.last()
+            if (drivingSessionsList.isNotEmpty()) {
+                return drivingSessionsList.last()
+            }
         }
         return getFakeDrivingSession().first()
     }
