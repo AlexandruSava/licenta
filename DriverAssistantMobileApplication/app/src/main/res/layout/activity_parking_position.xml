@@ -58,6 +58,7 @@
                             android:paddingTop="16dp">
 
                             <TextView
+                                android:id="@+id/parking_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal|center_vertical"
