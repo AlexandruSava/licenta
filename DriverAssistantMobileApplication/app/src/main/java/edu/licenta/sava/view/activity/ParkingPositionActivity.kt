@@ -47,7 +47,9 @@ class ParkingPositionActivity : DrawerLayoutActivity() {
     }
 
     private fun setTextView() {
-        if (currentDrivingSession.sensorDataList.last().latitude.toInt() == 0) {
+        if (currentDrivingSession.sensorDataList.isEmpty()) {
+            binding.parkingText.text = getString(R.string.no_information_available)
+        } else if (currentDrivingSession.sensorDataList.last().latitude.toInt() == 0) {
             binding.parkingText.text = getString(R.string.no_information_available)
         }
     }

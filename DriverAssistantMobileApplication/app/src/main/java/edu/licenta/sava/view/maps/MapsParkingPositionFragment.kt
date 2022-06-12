@@ -53,9 +53,11 @@ class MapsParkingPositionFragment : Fragment() {
         drivingSession = parkingPositionActivity.getCurrentDrivingSession()
         Log.d("Fragment:", "I acquired the following driving session $drivingSession")
 
-        if (drivingSession.sensorDataList.last().latitude.toInt() != 0) {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-            mapFragment?.getMapAsync(callback)
+        if (drivingSession.sensorDataList.isNotEmpty()) {
+            if (drivingSession.sensorDataList.last().latitude.toInt() != 0) {
+                val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+                mapFragment?.getMapAsync(callback)
+            }
         }
     }
 }
