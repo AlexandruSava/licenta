@@ -7,6 +7,10 @@ class DashboardService {
     fun calculateUserScore(drivingSessionList: ArrayList<DrivingSession>): Int {
         val totalDistance = calculateTotalDistance(drivingSessionList)
 
+        if (totalDistance < 0.01f) {
+            return 100
+        }
+
         var ponderedAverage = 0f
         for (drivingSession in drivingSessionList) {
             val weight = (drivingSession.distanceTraveled / totalDistance)
