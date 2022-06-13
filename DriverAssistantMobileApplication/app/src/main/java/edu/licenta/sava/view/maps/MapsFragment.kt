@@ -27,63 +27,65 @@ class MapsFragment : Fragment() {
         val warningEventsList = drivingSession.warningEventsList
         val sensorDataList = drivingSession.sensorDataList
 
-        val start = LatLng(
-            sensorDataList.first().latitude,
-            sensorDataList.first().longitude
-        )
-        val stop = LatLng(
-            sensorDataList.last().latitude,
-            sensorDataList.last().longitude
-        )
+        if (sensorDataList.isNotEmpty()) {
+            val start = LatLng(
+                sensorDataList.first().latitude,
+                sensorDataList.first().longitude
+            )
+            val stop = LatLng(
+                sensorDataList.last().latitude,
+                sensorDataList.last().longitude
+            )
 
-        val latLngList = ArrayList<LatLng>()
-        latLngList.add(start)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(start)
-                .title("START")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-        )?.tag = 0
-
-        for (warningEvent in warningEventsList) {
-            val latitude = warningEvent.sensorData.latitude
-            val longitude = warningEvent.sensorData.longitude
-            val message = "Speed: " + warningEvent.sensorData.speed.toString() +
-                    "KM/H, Limit: " + warningEvent.sensorData.speedLimit + "KM/H"
-            val latLng = LatLng(latitude, longitude)
+            val latLngList = ArrayList<LatLng>()
+            latLngList.add(start)
             googleMap.addMarker(
                 MarkerOptions()
-                    .position(latLng)
-                    .title(message)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-            )?.tag = 1
-        }
+                    .position(start)
+                    .title("START")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            )?.tag = 0
 
-        for (i in 1 until sensorDataList.size) {
-            if (!(sensorDataList[i].speed < 5 && sensorDataList[i - 1].speed < 5)) {
-                val latLng = LatLng(sensorDataList[i].latitude, sensorDataList[i].longitude)
-                latLngList.add(latLng)
+            for (warningEvent in warningEventsList) {
+                val latitude = warningEvent.sensorData.latitude
+                val longitude = warningEvent.sensorData.longitude
+                val message = "Speed: " + warningEvent.sensorData.speed.toString() +
+                        "KM/H, Limit: " + warningEvent.sensorData.speedLimit + "KM/H"
+                val latLng = LatLng(latitude, longitude)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title(message)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                )?.tag = 1
             }
+
+            for (i in 1 until sensorDataList.size) {
+                if (!(sensorDataList[i].speed < 5 && sensorDataList[i - 1].speed < 5)) {
+                    val latLng = LatLng(sensorDataList[i].latitude, sensorDataList[i].longitude)
+                    latLngList.add(latLng)
+                }
+            }
+
+            latLngList.add(stop)
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(stop)
+                    .title("STOP")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            )?.tag = 2
+
+            googleMap.addPolyline(
+                PolylineOptions()
+                    .color(Color.DKGRAY)
+                    .clickable(true)
+                    .addAll(latLngList)
+                    .width(10F)
+            ).tag = 3
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(start))
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f))
         }
-
-        latLngList.add(stop)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(stop)
-                .title("STOP")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        )?.tag = 2
-
-        googleMap.addPolyline(
-            PolylineOptions()
-                .color(Color.DKGRAY)
-                .clickable(true)
-                .addAll(latLngList)
-                .width(10F)
-        ).tag = 3
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(start))
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f))
     }
 
     override fun onCreateView(
