@@ -32,7 +32,7 @@ class LearningArticleActivity : DrawerLayoutActivity() {
         var videoId = ""
         when (article) {
             "seatbelt" -> {
-                videoId = "y3InF19dzlM"
+                videoId = "9_Af8w2SAT4"
                 setYoutubeVideo(videoId)
                 binding.articleTitle.text = getString(R.string.seatbelt)
                 binding.articleFirstParagraph.text = getString(R.string.seatbelt_first_paragraph)
